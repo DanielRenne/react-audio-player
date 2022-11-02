@@ -22,6 +22,7 @@ interface ReactAudioPlayerProps {
   onPause?: (e: Event) => void
   onPlay?: (e: Event) => void
   onSeeked?: (e: Event) => void
+  onTimeUpdate?: (e: Event) => void
   onVolumeChanged?: (e: Event) => void
   preload?: '' | 'none' | 'metadata' | 'auto'
   src?: string, // Not required b/c can use <source>
@@ -66,6 +67,9 @@ class ReactAudioPlayer extends Component<ReactAudioPlayerProps> {
   onSeeked = (e: Event) => {
     this.props.onSeeked?.(e);
   }
+  onTimeUpdate = (e: Event) => {
+    this.props.onTimeUpdate?.(e);
+  }
   onLoadedMetadata = (e: Event) => {
     this.props.onLoadedMetadata?.(e);
   }
@@ -103,6 +107,9 @@ class ReactAudioPlayer extends Component<ReactAudioPlayerProps> {
     // When the user drags the time indicator to a new time
     audio.addEventListener('seeked', this.onSeeked);
 
+    // When the playback position changes.
+    audio.addEventListener('timeupdate', this.onTimeUpdate);
+
     audio.addEventListener('loadedmetadata', this.onLoadedMetadata);
 
     audio.addEventListener('volumechange', this.onVolumeChanged);
@@ -136,6 +143,9 @@ class ReactAudioPlayer extends Component<ReactAudioPlayerProps> {
 
     // When the user drags the time indicator to a new time
     audio.removeEventListener('seeked', this.onSeeked);
+
+    // When the playback position changes.
+    audio.removeEventListener('timeupdate', this.onTimeUpdate);
 
     audio.removeEventListener('loadedmetadata', this.onLoadedMetadata);
 
@@ -198,6 +208,7 @@ class ReactAudioPlayer extends Component<ReactAudioPlayerProps> {
 
     return (
       <audio
+        current-time="{{hostCurrentTime::timeupdate}}"
         autoPlay={this.props.autoPlay}
         className={`react-audio-player ${this.props.className}`}
         controls={controls}
@@ -237,6 +248,7 @@ ReactAudioPlayer.defaultProps = {
   onPause: () => {},
   onPlay: () => {},
   onSeeked: () => {},
+  onTimeUpdate: () => {},
   onVolumeChanged: () => {},
   onLoadedMetadata: () => {},
   preload: 'metadata',
@@ -266,6 +278,7 @@ ReactAudioPlayer.propTypes = {
   onPause: PropTypes.func,
   onPlay: PropTypes.func,
   onSeeked: PropTypes.func,
+  onTimeUpdate: PropTypes.func,
   onVolumeChanged: PropTypes.func,
   preload: PropTypes.oneOf(['', 'none', 'metadata', 'auto']),
   src: PropTypes.string, // Not required b/c can use <source>
