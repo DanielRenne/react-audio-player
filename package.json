@@ -1,6 +1,6 @@
 {
-  "name": "react-audio-player",
-  "version": "0.17.0",
+  "name": "@solemomentsclub/react-audio-player",
+  "version": "0.17.1",
   "description": "A simple React wrapper for the audio tag",
   "main": "dist/bundle.js",
   "types": "dist/index.d.ts",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/justinmc/react-audio-player"
+    "url": "https://github.com/DanielRenne/react-audio-player"
   },
   "keywords": [
     "react",
@@ -23,7 +23,7 @@
     "wrapper",
     "simple"
   ],
-  "author": "Justin McCandless",
+  "author": "Sole Moments Club LLC",
   "license": "MIT",
   "peerDependencies": {
     "react": ">=16",
